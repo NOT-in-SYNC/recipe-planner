@@ -1,0 +1,45 @@
+{% extends 'planner/base.html' %}
+
+{% block content %}
+<div class="container" style="max-width: 600px;">
+    
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">🍳 Add a New Recipe</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div style="margin-bottom: 15px;">
+                    <label><strong>Recipe Title:</strong></label>
+                    <input type="text" name="title" class="form-control" placeholder="e.g., Spicy Pasta" required 
+                           style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label><strong>Description:</strong></label>
+                    <textarea name="description" rows="3" placeholder="Short description of the meal..." required
+                              style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"></textarea>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label><strong>Prep Time (minutes):</strong></label>
+                    <input type="number" name="prep_time" placeholder="30" required
+                           style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label><strong>Ingredients (One per line):</strong></label>
+                    <p style="font-size: 0.8rem; color: #666;">Format: Quantity - Name (e.g., <em>2 cups - Milk</em>)</p>
+                    <textarea name="ingredients" rows="8" placeholder="200g - Flour&#10;2 - Eggs&#10;1 tbsp - Salt" required
+                              style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: monospace;"></textarea>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%; cursor: pointer;">Save Recipe</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

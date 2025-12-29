@@ -1,0 +1,37 @@
+{% extends 'planner/base.html' %}
+
+{% block content %}
+    
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <h2>What are we cooking today?</h2>
+        <p style="color: #666;">Select your meals for the week below.</p>
+    </div>
+
+    <div class="recipe-grid">
+        {% for recipe in recipes %}
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{{ recipe.title }}</h3>
+                <span class="card-meta">⏱ {{ recipe.prep_time_minutes }} mins prep</span>
+            </div>
+
+            <div class="card-body">
+                <p><strong>Ingredients:</strong></p>
+                <ul class="ingredient-list">
+                    {% for ingredient in recipe.ingredients.all|slice:":3" %}
+                        <li>• {{ ingredient.quantity }} {{ ingredient.name }}</li>
+                    {% endfor %}
+                    
+                    {% if recipe.ingredients.count > 3 %}
+                        <li style="color: #2ecc71; font-weight: bold;">+ more...</li>
+                    {% endif %}
+                </ul>
+                <a href="#" class="btn">View Recipe</a>
+            </div>
+        </div>
+        {% empty %}
+            <p>No recipes found. Go to Admin to add some!</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}
