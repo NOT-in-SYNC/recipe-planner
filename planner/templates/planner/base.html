@@ -4,17 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FreshPlate | Recipe Planner</title>
+    <title>Chef's Planner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'planner/style.css' %}">
 </head>
 <body>
 
     <nav class="navbar">
-        <h1>🥦 FreshPlate</h1>
+        <a href="{% url 'home' %}" class="brand">
+            👨‍🍳 Chef's Planner
+        </a>
         <div class="nav-links">
-            <a href="{% url 'home' %}">Home</a>
-            <a href="#">Admin</a>
-            <a href="#">Generate List</a>
+            <a href="{% url 'home' %}" class="nav-item">Dashboard</a>
+            <a href="{% url 'browse_templates' %}" class="nav-item">Inspiration</a>
+            <a href="{% url 'add_recipe' %}" class="nav-btn">+ Add Recipe</a>
         </div>
     </nav>
 
@@ -22,11 +25,6 @@
         {% block content %}
         {% endblock %}
     </div>
-
-    <div class="nav-links">
-    <a href="{% url 'home' %}">Home</a>
-    <a href="{% url 'add_recipe' %}" style="background: white; color: #2ecc71; padding: 5px 10px; border-radius: 4px;">+ Add Recipe</a>
-    </div>  
 
 </body>
 </html>

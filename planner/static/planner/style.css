@@ -1,79 +1,221 @@
-/* GOOGLE FONTS & RESET */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+/* --- 1. CONFIGURATION & VARIABLES --- */
+:root {
+    --primary: #ff6b6b;       /* Appetizing Coral/Orange */
+    --primary-hover: #fa5252;
+    --secondary: #4ecdc4;     /* Fresh Mint for accents */
+    --dark: #2d3436;          /* Dark Charcoal for text */
+    --light: #f7f9fc;         /* Very light gray background */
+    --white: #ffffff;
+    --shadow: 0 10px 20px rgba(0,0,0,0.05); /* Soft premium shadow */
+    --radius: 16px;           /* Modern rounded corners */
+    --transition: all 0.3s ease;
+}
 
+/* --- 2. GLOBAL RESET --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
+    background-color: var(--light);
+    color: var(--dark);
     line-height: 1.6;
 }
 
-/* NAVBAR */
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+ul { list-style: none; }
+
+/* --- 3. NAVBAR --- */
 .navbar {
-    background-color: #2ecc71; /* Fresh Green */
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    color: white;
+    background: var(--white);
+    padding: 1rem 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-.navbar h1 { font-size: 1.5rem; font-weight: 600; }
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: 400;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-/* MAIN CONTAINER */
+.brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-links { display: flex; gap: 20px; align-items: center; }
+
+.nav-item {
+    font-weight: 500;
+    color: #636e72;
+    padding: 8px 16px;
+    border-radius: 50px;
+}
+
+.nav-item:hover { color: var(--primary); background: #fff0f0; }
+
+.nav-btn {
+    background: var(--primary);
+    color: white !important;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+}
+
+.nav-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+/* --- 4. LAYOUT & CONTAINERS --- */
 .container {
     max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 20px;
+    margin: 0 auto;
+    padding: 40px 20px;
 }
 
-/* GRID LAYOUT FOR RECIPES */
+.page-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.page-header h2 { font-size: 2.5rem; margin-bottom: 10px; color: var(--dark); }
+.page-header p { color: #b2bec3; font-size: 1.1rem; }
+
+/* --- 5. CARDS & GRID --- */
 .recipe-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
 }
 
-/* RECIPE CARD */
 .card {
-    background: white;
-    border-radius: 12px;
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 25px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid transparent;
+    display: flex;
+    flex-direction: column;
+    position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    transition: transform 0.2s ease;
 }
-.card:hover { transform: translateY(-5px); }
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    border-color: #ffe3e3;
+}
+
+/* Top colored strip on cards */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
 
 .card-header {
-    background-color: #e8f5e9;
-    padding: 1rem;
-    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
 }
-.card-title { font-size: 1.25rem; color: #27ae60; margin-bottom: 0.5rem; }
-.card-meta { font-size: 0.85rem; color: #7f8c8d; }
 
-.card-body { padding: 1.5rem; }
-.ingredient-list { list-style: none; margin-top: 10px; }
+.card-title { font-size: 1.4rem; font-weight: 700; color: var(--dark); }
+.card-meta { 
+    background: #f1f2f6; 
+    padding: 5px 12px; 
+    border-radius: 20px; 
+    font-size: 0.8rem; 
+    font-weight: 600;
+    color: #636e72;
+}
+
 .ingredient-list li {
-    font-size: 0.9rem;
-    padding: 4px 0;
-    border-bottom: 1px dotted #eee;
+    padding: 8px 0;
+    border-bottom: 1px dashed #dfe6e9;
+    color: #636e72;
+    font-size: 0.95rem;
 }
-.btn {
-    display: inline-block;
-    background: #2ecc71;
+
+.btn-card {
+    margin-top: auto; /* Pushes button to bottom */
+    text-align: center;
+    background: #f1f2f6;
+    color: var(--dark);
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+.btn-card:hover { background: var(--dark); color: white; }
+
+/* --- 6. FORMS (Search & Add) --- */
+.search-box {
+    background: var(--white);
+    padding: 10px;
+    border-radius: 50px;
+    box-shadow: var(--shadow);
+    display: flex;
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+    border: 1px solid #eee;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    padding: 15px 25px;
+    font-size: 1rem;
+    border-radius: 50px;
+    outline: none;
+    font-family: inherit;
+}
+
+.btn-search {
+    background: var(--primary);
     color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    margin-top: 1rem;
+    border: none;
+    padding: 0 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
 }
+.btn-search:hover { background: var(--primary-hover); }
+
+/* Form Elements */
+.form-control {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #f1f2f6;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+.form-control:focus {
+    border-color: var(--primary);
+    outline: none;
+    background: #fffafa;
+}
+label { font-weight: 600; color: var(--dark); display: block; margin-bottom: 8px; }
+
+.btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+.btn-submit:hover { transform: scale(1.02); }

@@ -1,0 +1,38 @@
+{% extends 'planner/base.html' %}
+
+{% block content %}
+
+<div class="page-header">
+    <h2>Recipe Library</h2>
+    <p>Tap "Add" to copy these chef-curated meals to your plan.</p>
+</div>
+
+<div class="recipe-grid">
+    {% for template in templates %}
+    <div class="card" style="border: 2px dashed #dcdde1; box-shadow: none;"> 
+        
+        <div class="card-header">
+            <h3 class="card-title">{{ template.title }}</h3>
+            <span class="card-meta" style="background: #e1f0ef; color: #00b894;">⏱ {{ template.time }}m</span>
+        </div>
+
+        <div class="card-body">
+            <p style="color: #636e72; margin-bottom: 15px; font-size: 0.95rem;">
+                {{ template.desc }}
+            </p>
+            
+            <ul class="ingredient-list">
+                {% for ingredient in template.ingredients|slice:":3" %}
+                    <li>• {{ ingredient }}</li>
+                {% endfor %}
+            </ul>
+
+            <a href="{% url 'copy_template' template.id %}" class="btn-submit" 
+               style="margin-top: 20px; display: block; text-align: center; text-decoration: none; padding: 12px; font-size: 1rem;">
+               ➕ Add to My Plan
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

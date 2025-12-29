@@ -2,35 +2,52 @@
 
 {% block content %}
     
-    <div style="text-align: center; margin-bottom: 3rem;">
-        <h2>What are we cooking today?</h2>
-        <p style="color: #666;">Select your meals for the week below.</p>
+    <div class="page-header">
+        <h2>What's cooking today?</h2>
+        <p>Plan your meals, organize your life.</p>
     </div>
+
+    <form method="GET" class="search-box">
+        <input type="text" name="q" class="search-input" 
+               placeholder="Search by meal or ingredient..." 
+               value="{{ request.GET.q|default:'' }}">
+        <button type="submit" class="btn-search">Search</button>
+    </form>
+
+    {% if request.GET.q %}
+    <div style="text-align: center; margin-bottom: 20px;">
+        <a href="{% url 'home' %}" style="color: #fa5252; font-weight: 600;">✖ Clear Filters</a>
+    </div>
+    {% endif %}
 
     <div class="recipe-grid">
         {% for recipe in recipes %}
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">{{ recipe.title }}</h3>
-                <span class="card-meta">⏱ {{ recipe.prep_time_minutes }} mins prep</span>
+                <span class="card-meta">⏱ {{ recipe.prep_time_minutes }}m</span>
             </div>
 
             <div class="card-body">
-                <p><strong>Ingredients:</strong></p>
                 <ul class="ingredient-list">
-                    {% for ingredient in recipe.ingredients.all|slice:":3" %}
+                    {% for ingredient in recipe.ingredients.all|slice:":4" %}
                         <li>• {{ ingredient.quantity }} {{ ingredient.name }}</li>
                     {% endfor %}
                     
-                    {% if recipe.ingredients.count > 3 %}
-                        <li style="color: #2ecc71; font-weight: bold;">+ more...</li>
+                    {% if recipe.ingredients.count > 4 %}
+                        <li style="color: var(--primary); font-weight: 600; margin-top: 5px;">
+                            + {{ recipe.ingredients.count|add:"-4" }} more...
+                        </li>
                     {% endif %}
                 </ul>
-                <a href="#" class="btn">View Recipe</a>
+                <a href="#" class="btn-card">View Full Details →</a>
             </div>
         </div>
         {% empty %}
-            <p>No recipes found. Go to Admin to add some!</p>
+            <div style="text-align: center; grid-column: 1 / -1; padding: 50px;">
+                <h3 style="color: #b2bec3;">No recipes found 🍜</h3>
+                <p>Try searching for something else or add a new recipe.</p>
+            </div>
         {% endfor %}
     </div>
 
